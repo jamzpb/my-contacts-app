@@ -8,11 +8,9 @@ const HomePage = () => {
       <p className="govuk-body">
         Add new contacts {"  "}
         <a href="/create" className="govuk-link">
-          here!
+          here
         </a>
-        
       </p>
-
       <ContactsTable />
     </>
   );
