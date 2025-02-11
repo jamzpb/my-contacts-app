@@ -25,6 +25,10 @@ namespace API.Repositories
         public async Task<Contact> AddContact(Contact contact)
         {
             contact.Created_At = DateTime.Now;
+            if(contact.EmailAddress == string.Empty)
+            {
+                contact.EmailAddress = null;
+            }
 
             var result = _context.AddAsync(contact);
             await _context.SaveChangesAsync();
@@ -35,6 +39,11 @@ namespace API.Repositories
         public async Task<Contact> UpdateContact(Contact contact)
         {
             var myContact = await _context.Contacts.FirstOrDefaultAsync(e => e.Id == contact.Id);
+
+            if(contact.EmailAddress == string.Empty)
+            {
+                contact.EmailAddress = null;
+            }
 
             if(myContact != null)
             {

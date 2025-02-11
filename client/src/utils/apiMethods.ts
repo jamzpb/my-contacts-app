@@ -1,7 +1,7 @@
 import { Contact } from "../types/Contact";
 
 
-const API_BASE_URL = import.meta.env.VITE_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 console.log(API_BASE_URL);
 
@@ -25,6 +25,7 @@ export const updateContact = async (updatedData: Contact): Promise<void> => {
 }
 
 export const createContact = async (newContact: Contact): Promise<void> => {
+  console.log(newContact);
   const response = await fetch(`${API_BASE_URL}/Add/`, {
     method: "POST",
     headers: {

@@ -9,14 +9,40 @@ const CreateContact = () => {
   const [newContact, setNewContact] = useState<Contact>({
     name: "",
     number: "",
-    // emailAddress: null
+    emailAddress: "",
   });
+
+  const [errors, setErrors] = useState<{ name?: string; number?: string; emailAddress?: string }>({});
 
   const navigate = useNavigate();
   const { refreshData } = useContext(ContactsContext);
 
+  const validateForm = () => {
+    const newErrors: { name?: string; number?: string; emailAddress?: string } = {};
+
+    if (!newContact.name.trim()) {
+      newErrors.name = "Enter a name";
+    }
+
+    if (!newContact.number.trim()) {
+      newErrors.number = "Enter a contact number";
+    } else if (!/^\d{11}$/.test(newContact.number)) {
+      newErrors.number = "Enter a valid 11-digit contact number";
+    }
+
+    if (newContact.emailAddress && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newContact.emailAddress)) {
+      newErrors.emailAddress = "Enter a valid email address";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!validateForm()) return;
+
     await createContact(newContact);
     refreshData();
     navigate("/");
@@ -31,58 +57,55 @@ const CreateContact = () => {
           <h2 className="govuk-fieldset__heading">Create your contact</h2>
         </legend>
 
-        <form onSubmit={handleSubmit}>
-          <div className="govuk-form-group">
+        <form onSubmit={handleSubmit} noValidate>
+          {/* Name Field */}
+          <div className={`govuk-form-group ${errors.name ? "govuk-form-group--error" : ""}`}>
             <label className="govuk-label" htmlFor="contact-name">
               Name
             </label>
+            {errors.name && <p className="govuk-error-message"><span className="govuk-visually-hidden">Error:</span> {errors.name}</p>}
             <input
-              className="govuk-input govuk-input--width-10"
+              className={`govuk-input ${errors.name ? "govuk-input--error" : ""}`}
               id="contact-name"
               name="contactName"
               type="text"
               autoComplete="contact-name"
               value={newContact.name}
-              onChange={(e) =>
-                setNewContact((prev) => ({ ...prev, name: e.target.value }))
-              }
+              onChange={(e) => setNewContact((prev) => ({ ...prev, name: e.target.value }))}
             />
           </div>
 
-          <div className="govuk-form-group">
+          {/* Number Field */}
+          <div className={`govuk-form-group ${errors.number ? "govuk-form-group--error" : ""}`}>
             <label className="govuk-label" htmlFor="contact-number">
               Number
             </label>
+            {errors.number && <p className="govuk-error-message"><span className="govuk-visually-hidden">Error:</span> {errors.number}</p>}
             <input
-              className="govuk-input govuk-input--width-10"
+              className={`govuk-input ${errors.number ? "govuk-input--error" : ""}`}
               id="contact-number"
               name="contactNumber"
               type="text"
               autoComplete="contact-number"
               value={newContact.number}
-              onChange={(e) =>
-                setNewContact((prev) => ({ ...prev, number: e.target.value }))
-              }
+              onChange={(e) => setNewContact((prev) => ({ ...prev, number: e.target.value }))}
             />
           </div>
 
-          <div className="govuk-form-group">
+          {/* Email Field (Optional) */}
+          <div className={`govuk-form-group ${errors.emailAddress ? "govuk-form-group--error" : ""}`}>
             <label className="govuk-label" htmlFor="contact-email">
               Email (optional)
             </label>
+            {errors.emailAddress && <p className="govuk-error-message"><span className="govuk-visually-hidden">Error:</span> {errors.emailAddress}</p>}
             <input
-              className="govuk-input govuk-input--width-10"
+              className={`govuk-input ${errors.emailAddress ? "govuk-input--error" : ""}`}
               id="contact-email"
               name="contactEmail"
               type="text"
               autoComplete="contact-email"
               value={newContact.emailAddress}
-              onChange={(e) =>
-                setNewContact((prev) => ({
-                  ...prev,
-                  emailAddress: e.target.value,
-                }))
-              }
+              onChange={(e) => setNewContact((prev) => ({ ...prev, emailAddress: e.target.value }))}
             />
           </div>
 
