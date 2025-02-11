@@ -22,7 +22,22 @@ const ContactsTable = () => {
     { field: "name" },
     { field: "number" },
     { field: "emailAddress" },
-    { field: "createdAt", headerName: "Added at" },
+    { 
+      field: "created_At", 
+      headerName: "Added at", 
+      valueFormatter: (params) => {
+        // Format the date using JavaScript
+        const date = new Date(params.value);
+        
+        // Format the date to the desired format (12:00:00 /01/01/24)
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        const formattedDate = date.toLocaleDateString('en-GB').split('/').reverse().join('/'); // "DD/MM/YY"
+        
+        return `${hours}:${minutes}:${seconds}  ---   ${formattedDate}`;
+    } 
+    },
     {
       field: "#",
       headerName: "Actions",

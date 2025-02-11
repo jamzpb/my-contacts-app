@@ -43,4 +43,22 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Seed and run database migrations everytime
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+
+try
+{
+    var context = services.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
+    await DbInitializer.SeedData(context);
+}
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "error occoured during migration");
+}
+
+
+
 app.Run();
