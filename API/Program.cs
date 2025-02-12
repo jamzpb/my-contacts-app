@@ -3,7 +3,13 @@ using API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+// clear default logs, hide warnings
+builder.Logging.ClearProviders(); 
+builder.Logging.AddConsole(); 
+builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.Warning); 
 
 builder.Services.AddCors(options => 
 {
@@ -25,7 +31,6 @@ builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -46,6 +51,7 @@ app.MapControllers();
 // Seed and run database migrations everytime
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
+var logger = services.GetRequiredService<ILogger<Program>>();
 
 try
 {
@@ -55,10 +61,10 @@ try
 }
 catch (Exception ex)
 {
-    var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "error occoured during migration");
 }
 
-
+logger.LogInformation("Now listening on, please click on this link!: http://localhost:5283/scalar");
+logger.LogInformation("To close, press ctrl+c. thanks :)");
 
 app.Run();
