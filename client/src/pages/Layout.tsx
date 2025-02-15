@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { useEffect } from "react";
 // @ts-expect-error: unreachable js
 import { initAll } from "../styles/govuk-frontend-5.8.0.min.js";
 import Header from "../components/Header.js";

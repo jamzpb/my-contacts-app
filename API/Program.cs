@@ -46,7 +46,13 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
+
+app.MapFallbackToController("Index", "Fallback");
+
 
 // Seed and run database migrations everytime
 using var scope = app.Services.CreateScope();
@@ -64,7 +70,8 @@ catch (Exception ex)
     logger.LogError(ex, "error occoured during migration");
 }
 
-logger.LogInformation("Now listening on, please click on this link!: http://localhost:5283/scalar");
+logger.LogInformation("To view client side application, please click on this link!: http://localhost:5283/");
+logger.LogInformation("To view further API information, please click on this link!: http://localhost:5283/scalar");
 logger.LogInformation("To close, press ctrl+c. thanks :)");
 
 app.Run();

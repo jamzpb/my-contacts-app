@@ -104,7 +104,7 @@ const CreateContact = () => {
               name="contactEmail"
               type="text"
               autoComplete="contact-email"
-              value={newContact.emailAddress}
+              value={newContact.emailAddress!}
               onChange={(e) => setNewContact((prev) => ({ ...prev, emailAddress: e.target.value }))}
             />
           </div>
