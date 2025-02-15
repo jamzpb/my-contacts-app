@@ -19,15 +19,18 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'  # Adjust if needed
+          dotnet-version: '9.x'  # Adjust if needed
 
       - name: Restore dependencies
-        run: dotnet restore my-contacts-app.sln
+        run: dotnet restore api/api.csproj
 
       - name: Build API
         run: dotnet build api/api.csproj --configuration Release --no-restore
+        
+      - name: Build Tests
+        run: dotnet build api.tests/api.tests.csproj --configuration Release --no-restore
 
-      - name: Run Unit Tests
+      - name: Run Tests
         run: dotnet test api.tests/api.tests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
 
       - name: Publish API
