@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - contacts-app
+name: Build, Test, and Deploy ASP.Net Core app to Azure Web App - contacts-app
 
 on:
   push:
@@ -19,18 +19,21 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x'  # Adjust to match your project version
+          dotnet-version: '8.x'  # Adjust if needed
 
       - name: Restore dependencies
-        run: dotnet restore api/api.csproj
+        run: dotnet restore my-contacts-app.sln
 
-      - name: Build 
+      - name: Build API
         run: dotnet build api/api.csproj --configuration Release --no-restore
 
-      - name: Publish 
+      - name: Run Unit Tests
+        run: dotnet test api.tests/api.tests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
+
+      - name: Publish API
         run: dotnet publish api/api.csproj -c Release -o "${{ github.workspace }}/publish"
 
-      - name: Upload build artifacts
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: .net-api
@@ -47,7 +50,7 @@ jobs:
       contents: read   # Required for actions/checkout
 
     steps:
-      - name: Download build artifacts
+      - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
           name: .net-api
