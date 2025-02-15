@@ -22,19 +22,21 @@ jobs:
           dotnet-version: '9.x'  # Adjust if needed
 
       - name: Restore dependencies
-        run: dotnet restore api/api.csproj
-
-      - name: Build API
-        run: dotnet build api/api.csproj --configuration Release --no-restore
+        run: |
+          dotnet restore api/api.csproj
+          dotnet restore api.tests/api.tests.csproj
         
-      - name: Build Tests
-        run: dotnet build api.tests/api.tests.csproj --configuration Release --no-restore
-
+      - name: Build API and Tests
+        run: |
+            dotnet build api/api.csproj --configuration Release --no-restore
+            dotnet build api.tests/api.tests.csproj --configuration Release --no-restore
+        
       - name: Run Tests
         run: dotnet test api.tests/api.tests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
-
+        
       - name: Publish API
         run: dotnet publish api/api.csproj -c Release -o "${{ github.workspace }}/publish"
+        
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
