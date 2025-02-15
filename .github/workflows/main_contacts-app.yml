@@ -23,9 +23,19 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
+      - name: Restore dependencies
+        run: |
+            dotnet restore api/api.csproj
+            dotnet restore api.tests/api.tests.csproj
+        
+      - name: Build API and Tests
+        run: |
+            dotnet build api/api.csproj --configuration Release --no-restore
+            dotnet build api.tests/api.tests.csproj --configuration Release --no-restore
+        
+      - name: Run Tests
+        run: dotnet test api.tests/api.tests.csproj --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --collect:"XPlat Code Coverage"
+        
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
@@ -34,6 +44,8 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+
+    
 
   deploy:
     runs-on: windows-latest
