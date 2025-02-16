@@ -6,4 +6,4 @@ This is my contacts app for the TFL application. Read below for how to run local
 
 To run the project locally, they is two options. however firstly, clone the project and open with IDE of your choice. (i would recommend vscode)
 - git clone https://github.com/jamzpb/my-contacts-app.git
-
+<img width="543" alt="Image" src="https://github.com/user-attachments/assets/467963f5-8eb4-4a7a-a59a-2bd5de2aedb5" />
