@@ -58,18 +58,31 @@ You can also run the development build, which replicates the development envirom
 1. once open in IDE, open each directory in a seperate terminal. for example, api in terminal 1, client in terminal 2
 <img width="1084" alt="Image" src="https://github.com/user-attachments/assets/2e6b4012-676b-43cf-b870-a88f0fc6e932" />
 
-### API
+#### API
 1. run **dotnet run** OR **dotnet watch** within the api terminal. then check the api is running by going to link provided, scalar ui:
 <img width="752" alt="Image" src="https://github.com/user-attachments/assets/4a0aae86-9de2-4bba-8d45-8179955adf88" />
 
 	it will allow you to test and run the api endpoints.
 <img width="1438" alt="Image" src="https://github.com/user-attachments/assets/0c80c666-7308-4b5f-ae83-a0841658a667" />
 
-### CLIENT
+#### CLIENT
 1. Within the client terminal, run **npm install** to install dependencies then **npm run dev** to run development server for the client side app, then click the localhost link and you'll be taken to the app.
 <img width="338" alt="Image" src="https://github.com/user-attachments/assets/ef35e0b7-6ca5-428f-87ba-9a113d5bc974" />
-the client app
-<img width="1102" alt="Image" src="https://github.com/user-attachments/assets/f98ed38c-dac8-4ccf-9d36-83754fdf040d" />
 
+##Prepare for Production and Deploy to Azure
 
+I have chosen to deploy the project to azure as im familar with it and .NET core stack works well on there.
 
+#### Preparing Client App for Production
+
+Firstly, create a .env.production file, this will contain configuration settings specifically for the production build of the application. In this case, the API url:
+
+<img width="308" alt="Image" src="https://github.com/user-attachments/assets/d80d140a-b51d-4d1f-80a6-9d6662b46a3b" />
+
+Once env has been configured for prod, run the **npm run build** command, this will generate the production build files for the client app.
+<img width="316" alt="Image" src="https://github.com/user-attachments/assets/c7e8630e-44ba-49cd-9e68-a095129dd416" />
+
+Additonally, the output directory needs to be configured in the vite.config.ts to the wwwroot folder in the API project, where static files will be hosted.
+<img width="372" alt="Image" src="https://github.com/user-attachments/assets/25a5b11d-1edf-4339-be66-2a66cabc1563" />
+
+#### Preparing API for Production
