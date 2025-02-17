@@ -1,6 +1,6 @@
 # My Contacts App - TFL
 
-This is my contacts app for the TFL application. Read below for how to run locally and cloud deployment process. The project itself is live and deployed [here](contacts-app-azhea2hwhzafdzbm.ukwest-01.azurewebsites.net "here"), if interested. Using Azure Free F3 Tier, may lag due to this.
+This is my contacts app for the TFL application. Read below for how to run locally and cloud deployment process. The project itself is live and deployed [Here](https://contacts-app-azhea2hwhzafdzbm.ukwest-01.azurewebsites.net/ "Visual Studio Code (IDE)"), if interested. Using Azure Free F3 Tier, may lag due to this.
 
 **Prerequisites**
 - [Visual Studio Code (IDE)](https://code.visualstudio.com/ "Visual Studio Code (IDE)")
