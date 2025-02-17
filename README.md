@@ -26,6 +26,10 @@ The project uses a React TypeScript client application and .NET Core API with C#
 - AG Grid
 - GOVUK Design System
 
+SQlite
+- Has been configured will run migrations and seed database on startup with dummy data.
+- Would reccomend Postgres or MS SQL Server for production
+
 
 ### Run locally
 
