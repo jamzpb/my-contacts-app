@@ -36,7 +36,7 @@ To run the project locally, they is two options. however firstly, clone the proj
 
 
 
-**Run local Production environment:**
+**Run local Pre-Production environment:**
 
 I have arranged for the API to serve the static files, such as the client app. This is easiest and simplest way to run the project and replicates the production environment completely.
 
