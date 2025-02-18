@@ -207,10 +207,11 @@ After modifying the YAML file:
 ### **1. API not running?**
 - Ensure `.NET SDK` is installed.
 - Check if another process is using the same port.
+- Run `dotnet build` to catch compilation errors.
 
 ### **2. Client app not loading?**
 - Run `npm install` to check for missing dependencies.
-- Ensure the `.env.production` file is correctly set.
+- Make sure NodeJS is installed
 
 ### **3. Deployment failing?**
 - Run `dotnet build` to catch compilation errors.
