@@ -12,28 +12,28 @@ public class DbInitializer
             new Contact
             {
                 Name = "John Doe",
-                Number = "1234567891",
+                Number = "12345678910",
                 EmailAddress = "johndoe@example.com",
                 Created_At = DateTime.Now
             },
             new Contact
             {
                 Name = "Jane Smith",
-                Number = "1234567891",
+                Number = "12345678910",
                 EmailAddress = "janesmith@example.com",
                 Created_At = DateTime.Now
             },
             new Contact
             {
                 Name = "Alice Johnson",
-                Number = "1234567891",
+                Number = "12345678910",
                 EmailAddress = "alice.johnson@example.com",
                 Created_At = DateTime.Now
             },
             new Contact
             {
                 Name = "Bob Brown",
-                Number = "0123456789",
+                Number = "012345678910",
                 EmailAddress = "bob.brown@example.com",
                 Created_At = DateTime.Now
             }
